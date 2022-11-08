@@ -1,22 +1,34 @@
 import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 
+import * as S from './styles';
+
 export function MyDropzone() {
+  const renderTextInfo = (isDragActive: boolean, isDragReject: boolean) => {
+    if(isDragActive) {
+      return <span>Drop the files here...</span>
+    }
+
+    if(isDragReject) {
+      return <span>Unsupported file</span>
+    }
+
+    return <span>Drag 'n' drop some files here, or click to select files</span>
+  };
+
   const onDrop = useCallback((acceptedFiles: File[]) => {
     console.log(acceptedFiles);
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({ onDrop });
 
   return (
-    <div {...getRootProps()}>
+    <S.Container {...getRootProps()} isDragActive={isDragActive} isDragReject={isDragReject} >
       <input
         {...getInputProps()}
       />
-      <p>Drag 'n' drop some files here, or click to select files</p>
-      {isDragActive && <h3>Drop the files here...</h3>}
-      {isDragReject && <h3>Unsupported file</h3>}
-      {isDragAccept && <h3>The file is accepted</h3>}
-    </div>
+
+      {renderTextInfo(isDragActive, isDragReject)}
+    </S.Container>
   );
 }
