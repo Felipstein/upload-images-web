@@ -1,6 +1,7 @@
 export interface ThemeProps {
   font: string;
   colors: {
+    white: string;
     purple: {
       500: string;
     };
@@ -25,6 +26,7 @@ export interface ThemeProps {
     md: string;
     lg: string;
   };
+  shadow: string;
 }
 
 export const defaultTheme: ThemeProps = {
@@ -32,6 +34,7 @@ export const defaultTheme: ThemeProps = {
   font: 'Inter, sans-serif',
 
   colors: {
+    white: '#fff',
     purple: {
       500: '#a855f7',
     },
@@ -61,5 +64,7 @@ export const defaultTheme: ThemeProps = {
     md: '2.8rem',
     lg: '3.2rem',
   },
+
+  shadow: '2px 4px 10px rgba(0, 0, 0, 0.2)',
 
 }

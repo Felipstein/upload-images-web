@@ -1,26 +1,38 @@
-import { useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { useCallback, useState } from 'react';
+import { useDropzone, FileRejection } from 'react-dropzone';
+import { toast } from 'react-toastify';
 
 import * as S from './styles';
 
 export function MyDropzone() {
+  const [files, setFiles] = useState<File[]>([]);
+
   const renderTextInfo = (isDragActive: boolean, isDragReject: boolean) => {
     if(isDragActive) {
-      return <span>Drop the files here...</span>
+      return <span>Solte agora sua(s) imagen(s)!</span>
     }
-
+    
     if(isDragReject) {
-      return <span>Unsupported file</span>
+      return <span>Esse(s) arquivo(s) não é uma imagem</span>
     }
-
-    return <span>Drag 'n' drop some files here, or click to select files</span>
+    
+    return <span>Arraste suas imagens aqui ou clique para procurar</span>
   };
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    console.log(acceptedFiles);
+  const onDrop = useCallback((acceptedFiles: File[], rejectableFiles: FileRejection[]) => {
+    if(rejectableFiles.length > 0) {
+      toast.error(`${rejectableFiles.length} image${rejectableFiles.length > 1 ? 'ns' : 'm'} não foi enviada`);
+    }
+
+    setFiles(acceptedFiles);
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({
+    onDrop,
+    maxSize: 32 * 1024 * 1024,
+    maxFiles: 100,
+    
+  });
 
   return (
     <S.Container {...getRootProps()} isDragActive={isDragActive} isDragReject={isDragReject} >
