@@ -14,6 +14,8 @@ export interface ThemeProps {
     };
     gray: {
       400: string;
+      500: string;
+      700: string;
     }
   };
   fontSize: {
@@ -50,6 +52,8 @@ export const defaultTheme: ThemeProps = {
 
     gray: {
       400: '#9ca3af',
+      500: '#6b7280',
+      700: '#374151',
     }
   },
 

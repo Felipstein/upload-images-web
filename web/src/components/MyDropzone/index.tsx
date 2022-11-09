@@ -1,37 +1,41 @@
 import { useCallback, useState } from 'react';
-import { useDropzone, FileRejection } from 'react-dropzone';
+import { useDropzone, FileRejection, DropEvent } from 'react-dropzone';
 import { toast } from 'react-toastify';
 
 import * as S from './styles';
 
-export function MyDropzone() {
-  const [files, setFiles] = useState<File[]>([]);
+interface MyDropzoneProps {
+  onUpload: (files: File[]) => void;
+}
 
+export function MyDropzone({ onUpload }: MyDropzoneProps) {
   const renderTextInfo = (isDragActive: boolean, isDragReject: boolean) => {
-    if(isDragActive) {
-      return <span>Solte agora sua(s) imagen(s)!</span>
+    if(!isDragActive) {
+      return <span>Arraste suas imagens aqui ou clique para procurar</span>
     }
     
     if(isDragReject) {
-      return <span>Esse(s) arquivo(s) não é uma imagem</span>
+      return <span>Arquivos incompatíveis ou possui 10 imagens</span>
     }
     
-    return <span>Arraste suas imagens aqui ou clique para procurar</span>
+    return <span>Solte agora suas imagens!</span>
   };
 
-  const onDrop = useCallback((acceptedFiles: File[], rejectableFiles: FileRejection[]) => {
+  const handleFilesDropped = useCallback((acceptedFiles: File[], rejectableFiles: FileRejection[]) => {
     if(rejectableFiles.length > 0) {
-      toast.error(`${rejectableFiles.length} image${rejectableFiles.length > 1 ? 'ns' : 'm'} não foi enviada`);
+      toast.error(`${rejectableFiles.length} image${rejectableFiles.length > 1 ? 'ns' : 'm'} não fo${rejectableFiles.length > 1 ? 'ram' : 'i'} enviada${rejectableFiles.length > 1 ? 's' : ''}`);
     }
 
-    setFiles(acceptedFiles);
+    onUpload(acceptedFiles);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({
-    onDrop,
+    onDrop: handleFilesDropped,
     maxSize: 32 * 1024 * 1024,
-    maxFiles: 100,
-    
+    maxFiles: 10,
+    accept: {
+      'image/*': [],
+    },
   });
 
   return (
