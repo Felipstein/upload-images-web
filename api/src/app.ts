@@ -1,5 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
+import 'dotenv/config';
 
 import { uploadRoutes } from './routes/upload.routes';
 
