@@ -1,11 +1,11 @@
 import multer from 'multer';
 import path from 'path';
 import crypto from 'crypto';
+import { S3Client } from '@aws-sdk/client-s3';
+import multerS3 from 'multer-s3';
 
-export default {
-  dest: path.resolve('temp', 'uploads'),
-
-  storage: multer.diskStorage({
+const storageType = {
+  local: multer.diskStorage({
     destination(req, file, callback) {
       callback(null, path.resolve('temp', 'uploads'));
     },
@@ -21,9 +21,39 @@ export default {
 
         callback(null, fileName);
       });
-
     },
   }),
+  
+  s3: multerS3({
+    s3: new S3Client({
+      region: process.env.AWS_DEFAULT_REGION,
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      },
+    }),
+    bucket: 'felipeuploadimages',
+    contentType: multerS3.AUTO_CONTENT_TYPE,
+    acl: 'public-read',
+    key(req, file, callback) {
+        crypto.randomBytes(6, (err, hash) => {
+          if(err) {
+            callback(err);
+          }
+
+          const time = new Date().getTime();
+          const fileName = `${time}-${hash}_${file.originalname}`;
+
+          callback(null, fileName);
+        });
+    },
+  })
+}
+
+export default {
+  dest: path.resolve('temp', 'uploads'),
+
+  storage: storageType.s3,
 
   limits: {
     fileSize: 30 * 1024 * 1024
