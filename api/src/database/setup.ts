@@ -11,7 +11,6 @@ export async function setupDatabase(req: Request, res: Response, next: NextFunct
 
   try {
     await mongoose.connect(UR);
-    console.log('Conexão com banco de dados!');
 
     next();
   } catch (err: any) {

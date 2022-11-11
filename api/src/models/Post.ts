@@ -1,6 +1,14 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 
-const PostSchema = new mongoose.Schema({
+export interface IPost {
+  fileName: string;
+  size: number;
+  key: string;
+  url: string;
+  createdAt: Date;
+}
+
+const postSchema = new Schema<IPost>({
   fileName: {
     type: String,
     required: true,
@@ -20,5 +28,9 @@ const PostSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-  }
+  },
 });
+
+const Post = model<IPost>('Post', postSchema);
+
+export { Post };
