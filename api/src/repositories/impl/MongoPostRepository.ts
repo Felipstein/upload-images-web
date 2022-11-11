@@ -1,3 +1,4 @@
+import { isValidObjectId } from 'mongoose';
 import { IPost, Post } from '../../models/Post';
 import { IPostRepository } from './../IPostRepository';
 
@@ -7,10 +8,14 @@ export class MongoPostRepository implements IPostRepository {
     return await Post.find();
   }
 
-  async listById(id: string): Promise<IPost | any> {
+  async listById(id: string): Promise<IPost | any | null> {
+    if(!isValidObjectId(id)) {
+      return null;
+    }
+
     const post = await Post.findById(id);
 
-    return post;
+    return post ?? null;
   }
 
   async create({ fileName, size, key, url }: Omit<IPost, 'createdAt'>): Promise<IPost> {
@@ -24,6 +29,10 @@ export class MongoPostRepository implements IPostRepository {
   }
 
   async delete(id: string): Promise<void> {
+    if(!isValidObjectId(id)) {
+      return;
+    }
+
     await Post.findByIdAndDelete(id);
   }
 
