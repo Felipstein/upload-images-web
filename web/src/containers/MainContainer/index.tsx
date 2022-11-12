@@ -22,7 +22,7 @@ export function MainContainer() {
       preview: URL.createObjectURL(file),
       progress: 0,
       uploaded: false,
-      error: false,
+      error: null,
       url: null,
     }));
 
@@ -41,15 +41,15 @@ export function MainContainer() {
       updateFile(uploadedFile.id, { progress });
     });
 
-    if (!dataReturned) {
-      updateFile(uploadedFile.id, {
-        error: true,
-      });
-    } else {
+    if (dataReturned.ok) {
       updateFile(uploadedFile.id, {
         uploaded: true,
         id: dataReturned._id,
         url: dataReturned.url,
+      });
+    } else {
+      updateFile(uploadedFile.id, {
+        error: dataReturned.errorMessage,
       });
     }
 

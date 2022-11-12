@@ -5,7 +5,7 @@ export type FileImage = {
   readableSize: string | number | any;
   preview: string;
   uploaded: boolean;
-  error: boolean;
+  error: string | null;
   progress: number;
   url: string | null;
 }

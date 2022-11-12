@@ -13,6 +13,8 @@ export const {
   STORAGE_TYPE: type = 's3',
 } = process.env;
 
+export const fileSizeLimit = 1024;
+
 export function loadS3Credentials(req: Request, res: Response, next: NextFunction) {
   if ([bucketName, region, accessKeyId, secretAccessKey].some(value => !value)) {
     throw new Error('Fatal error: S3 "BUECKET_NAME", "AWS_DEFAULT_REGION", "AWS_ACCESS_KEY_ID" or/and "AWS_SECRET_ACCESS_KEY" not defined in .env');
@@ -72,7 +74,7 @@ export default {
   storage: type === 's3' ? storageType.s3 : storageType.local, // I don't know how to solve this problem with typescript yet
 
   limits: {
-    fileSize: 1024
+    fileSize: fileSizeLimit,
   },
 
   fileFilter(req, file, callback) {

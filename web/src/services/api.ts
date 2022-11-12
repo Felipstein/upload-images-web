@@ -17,16 +17,20 @@ class API {
         onUploadProgress
       });
 
-      return dataReturned;
+      return {
+        ok: true,
+        ...dataReturned,
+      };
     } catch (err: AxiosError | Error | any) {
       if (err instanceof AxiosError) {
-        console.log(err);
-        toast.error(err.response?.data.message);
+        const message = err.response?.data.message || 'Erro desconhecido, tente novamente mais tarde.';
+        toast.error(message);
+        return { errorMessage: message };
       } else {
-        toast.error(err.message || 'Erro desconhecido.');
+        const message = err.message || 'Erro desconhecido, tente novamente mais tarde.';
+        toast.error(message);
+        return { errorMessage: message };
       }
-
-      return null;
     }
   }
 

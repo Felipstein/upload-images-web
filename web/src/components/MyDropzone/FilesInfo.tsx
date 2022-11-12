@@ -29,7 +29,7 @@ export function FilesInfo({ files }: FilesInfoProps) {
             </div>
           </S.FileInfo>
 
-          {file.uploaded && !file.error ? (
+          {file.uploaded && !file.error && (
             <S.FileActions>
               <S.CopyLinkButton>
                 <Link />
@@ -38,7 +38,9 @@ export function FilesInfo({ files }: FilesInfoProps) {
                 <Trash />
               </S.DeleteButton>
             </S.FileActions>
-          ) : (
+          )}
+
+          {!file.uploaded && !file.error && (
             <CircularProgressbar
               styles={{
                 root: { width: '2.4rem' },
@@ -50,7 +52,7 @@ export function FilesInfo({ files }: FilesInfoProps) {
           )}
 
           {file.error && (
-            <Tooltip text='Oii deu erro kkkk'>
+            <Tooltip text={file.error}>
               <S.ErrorIcon>
                 <Warning />
               </S.ErrorIcon>
