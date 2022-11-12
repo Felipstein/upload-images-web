@@ -8,13 +8,13 @@ export class CreatePostUseCases {
     private postsRepository: IPostRepository,
   ) { }
 
-  async execute({ file }: { file: Express.Multer.File & { key: string, url: string } | undefined }): Promise<IPost> {
+  async execute({ file }: { file: Express.Multer.File & { key: string, url: string, location: string } | undefined }): Promise<IPost> {
     if (!file) {
       throw new APIError(400, 'Arquivo não pode ser nulo ou inexistente.');
     }
 
     console.log('oiiiiiiiiiiiii');
-    const { originalname: fileName, size, filename: keyLocal, key: keyS3, url = "" } = file;
+    const { originalname: fileName, size, filename: keyLocal, key: keyS3, location: url = "" } = file;
     console.log(file);
 
     const key = keyS3 || keyLocal;
