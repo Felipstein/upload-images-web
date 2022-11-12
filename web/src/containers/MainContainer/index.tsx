@@ -24,8 +24,8 @@ export function MainContainer() {
       error: false,
       url: null,
     }));
-    
-    setFiles(filesMapped);
+
+    setFiles(prevState => prevState.concat(filesMapped));
   }
 
   return (

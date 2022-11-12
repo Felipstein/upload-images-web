@@ -10,24 +10,24 @@ interface MyDropzoneProps {
 
 export function MyDropzone({ onUpload }: MyDropzoneProps) {
   const renderTextInfo = (isDragActive: boolean, isDragReject: boolean) => {
-    if(!isDragActive) {
+    if (!isDragActive) {
       return <span>Arraste suas imagens aqui ou clique para procurar</span>
     }
-    
-    if(isDragReject) {
+
+    if (isDragReject) {
       return <span>Arquivos incompatíveis ou possui 10 imagens</span>
     }
-    
+
     return <span>Solte agora suas imagens!</span>
   };
 
   const handleFilesDropped = useCallback((acceptedFiles: File[], rejectableFiles: FileRejection[]) => {
-    if(rejectableFiles.length > 0) {
+    if (rejectableFiles.length > 0) {
       toast.error(`${rejectableFiles.length} image${rejectableFiles.length > 1 ? 'ns' : 'm'} não fo${rejectableFiles.length > 1 ? 'ram' : 'i'} enviada${rejectableFiles.length > 1 ? 's' : ''}`);
     }
 
     onUpload(acceptedFiles);
-  }, []);
+  }, [onUpload]);
 
   const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({
     onDrop: handleFilesDropped,
