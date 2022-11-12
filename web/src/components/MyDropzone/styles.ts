@@ -122,3 +122,8 @@ export const DeleteButton = styled.button`
     color: ${({ theme }: GlobalThemeProps) => theme.colors.red[400]};
   }
 `;
+
+export const ErrorIcon = styled.div`
+  font-size: 2.4rem;
+  color: ${({ theme }: GlobalThemeProps) => theme.colors.red[500]};
+`;

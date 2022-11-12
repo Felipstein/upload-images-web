@@ -49,7 +49,9 @@ export function FilesInfo({ files }: FilesInfoProps) {
           )}
 
           {file.error && (
-            <Warning />
+            <S.ErrorIcon>
+              <Warning />
+            </S.ErrorIcon>
           )}
 
         </S.FileContainer>
