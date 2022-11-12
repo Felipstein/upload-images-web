@@ -9,7 +9,7 @@ export class MongoPostRepository implements IPostRepository {
   }
 
   async listById(id: string): Promise<IPost | any | null> {
-    if(!isValidObjectId(id)) {
+    if (!isValidObjectId(id)) {
       return null;
     }
 
@@ -29,7 +29,7 @@ export class MongoPostRepository implements IPostRepository {
   }
 
   async delete(id: string): Promise<void> {
-    if(!isValidObjectId(id)) {
+    if (!isValidObjectId(id)) {
       return;
     }
 

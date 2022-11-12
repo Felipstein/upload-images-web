@@ -11,7 +11,11 @@ export class ListPostUseCases {
   async execute({ id }: { id: string }): Promise<IPost | null> {
     const post = await this.postsRepository.listById(id);
 
-    return post ?? null;
+    if (!post) {
+      throw new APIError(400, 'Post não encontrado.');
+    }
+
+    return post;
   }
 
 }
