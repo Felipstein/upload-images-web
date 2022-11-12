@@ -1,11 +1,12 @@
+import { NextFunction, Request, Response } from 'express';
 import multer from 'multer';
 import path from 'path';
 import crypto from 'crypto';
 import { S3Client } from '@aws-sdk/client-s3';
 import multerS3 from 'multer-s3';
-import { NextFunction, Request, Response } from 'express';
 
 export const {
+  AWS_BUCKET_NAME: bucketName = '',
   AWS_DEFAULT_REGION: region,
   AWS_ACCESS_KEY_ID: accessKeyId,
   AWS_SECRET_ACCESS_KEY: secretAccessKey,
@@ -13,8 +14,8 @@ export const {
 } = process.env;
 
 export function loadS3Credentials(req: Request, res: Response, next: NextFunction) {
-  if ([region, accessKeyId, secretAccessKey].some(value => !value)) {
-    throw new Error('Fatal error: S3 "AWS_DEFAULT_REGION", "AWS_ACCESS_KEY_ID" or/and "AWS_SECRET_ACCESS_KEY" not defined in .env');
+  if ([bucketName, region, accessKeyId, secretAccessKey].some(value => !value)) {
+    throw new Error('Fatal error: S3 "BUECKET_NAME", "AWS_DEFAULT_REGION", "AWS_ACCESS_KEY_ID" or/and "AWS_SECRET_ACCESS_KEY" not defined in .env');
   }
 
   next();
@@ -47,7 +48,7 @@ const storageType = {
         accessKeyId: accessKeyId ?? '', secretAccessKey: secretAccessKey ?? '',
       }
     }),
-    bucket: 'felipeuploadimages',
+    bucket: bucketName,
     contentType: multerS3.AUTO_CONTENT_TYPE,
     acl: 'public-read',
     key(req, file, callback) {

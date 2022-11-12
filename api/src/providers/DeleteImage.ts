@@ -3,14 +3,14 @@ import fs from 'fs';
 import path from 'path';
 import { promisify } from 'util';
 
-import { type as storageType } from "../config/multer";
+import { bucketName, type as storageType } from "../config/multer";
 
 const s3 = new aws.S3();
 
 export async function DeleteImage(key: string) {
   if (storageType === 's3') {
     return await s3.deleteObject({
-      Bucket: 'felipeuploadimages',
+      Bucket: bucketName,
       Key: key,
     }).promise();
   } else {
