@@ -1,5 +1,14 @@
 import { Schema, model } from "mongoose";
+import aws from 'aws-sdk';
+import fs from 'fs';
+import path from 'path';
+import { promisify } from "util";
+
 import { port } from "../server";
+import { type as storageType } from "../config/multer";
+import { DeleteImage } from "../providers/DeleteImage";
+
+const s3 = new aws.S3();
 
 export interface IPost {
   fileName: string;
