@@ -1,7 +1,7 @@
 import multer from 'multer';
 import path from 'path';
 import crypto from 'crypto';
-import { S3Client } from '@aws-sdk/client-s3';
+import { S3Client, S3ClientConfig } from '@aws-sdk/client-s3';
 import multerS3 from 'multer-s3';
 import { NextFunction, Request, Response } from 'express';
 
@@ -41,8 +41,10 @@ const storageType = {
 
   s3: multerS3({
     s3: new S3Client({
-      region,
-      credentials: { accessKeyId: accessKeyId ?? '', secretAccessKey: secretAccessKey ?? '' },
+      region: region,
+      credentials: {
+        accessKeyId: accessKeyId ?? '', secretAccessKey: secretAccessKey ?? '',
+      }
     }),
     bucket: 'felipeuploadimages',
     contentType: multerS3.AUTO_CONTENT_TYPE,

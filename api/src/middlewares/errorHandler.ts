@@ -8,7 +8,8 @@ export function errorHandler(err: Error | APIError | any, req: Request, res: Res
     }
 
     console.error('#### An unexpected error was returned ####');
-    console.error(err);
+    console.error(`${err.name}: ${err.message}`);
+    console.error(err.stack);
 
     return res.status(500).json({ message: 'Houve um erro inesperado no nosso servidor, tente novamente mais tarde.' });
   }

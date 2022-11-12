@@ -9,16 +9,16 @@ export class CreatePostUseCases {
   ) { }
 
   async execute({ file }: { file: Express.Multer.File & { key: string, url: string } | undefined }): Promise<IPost> {
-    if(!file) {
+    if (!file) {
       throw new APIError(400, 'Arquivo não pode ser nulo ou inexistente.');
     }
-    
+
+    console.log('oiiiiiiiiiiiii');
+    const { originalname: fileName, size, filename: keyLocal, key: keyS3, url = "" } = file;
     console.log(file);
 
-    const { originalname: fileName, size, filename: keyLocal, key: keyS3, url = "" } = file;
-    
     const key = keyS3 || keyLocal;
-    if(!key) {
+    if (!key) {
       throw new Error('Key (file name uploaded) is null.');
     }
 
