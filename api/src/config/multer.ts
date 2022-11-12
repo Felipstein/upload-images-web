@@ -8,7 +8,8 @@ import { NextFunction, Request, Response } from 'express';
 const {
   AWS_DEFAULT_REGION: region,
   AWS_ACCESS_KEY_ID: accessKeyId,
-  AWS_SECRET_ACCESS_KEY: secretAccessKey
+  AWS_SECRET_ACCESS_KEY: secretAccessKey,
+  STORAGE_TYPE: type = 's3',
 } = process.env;
 
 export function loadS3Credentials(req: Request, res: Response, next: NextFunction) {
@@ -62,12 +63,12 @@ const storageType = {
       });
     },
   })
-}
+};
 
 export default {
   dest: path.resolve('temp', 'uploads'),
 
-  storage: storageType.local,
+  storage: type === 's3' ? storageType.s3 : storageType.local, // I don't know how to solve this problem with typescript yet
 
   limits: {
     fileSize: 30 * 1024 * 1024
