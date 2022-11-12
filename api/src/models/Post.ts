@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { port } from "../server";
 
 export interface IPost {
   fileName: string;
@@ -26,6 +27,12 @@ const postSchema = new Schema<IPost>({
     type: Date,
     default: Date.now,
   },
+});
+
+postSchema.pre('save', function () {
+  if (!this.url) {
+    this.url = `${process.env.APP_URL}:${port}/files/${this.key}`;
+  }
 });
 
 const Post = model<IPost>('Post', postSchema);

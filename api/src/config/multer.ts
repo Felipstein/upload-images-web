@@ -67,7 +67,7 @@ const storageType = {
 export default {
   dest: path.resolve('temp', 'uploads'),
 
-  storage: storageType.s3,
+  storage: storageType.local,
 
   limits: {
     fileSize: 30 * 1024 * 1024

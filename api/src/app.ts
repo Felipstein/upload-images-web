@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(loadS3Credentials);
 app.use(setupDatabase);
-app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp', 'uploads')));
+app.use('/files', express.static(path.resolve(__dirname, '..', 'temp', 'uploads')));
 
 app.use(uploadRoutes);
 
