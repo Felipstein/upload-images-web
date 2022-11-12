@@ -3,6 +3,21 @@ import path from 'path';
 import crypto from 'crypto';
 import { S3Client } from '@aws-sdk/client-s3';
 import multerS3 from 'multer-s3';
+import { NextFunction, Request, Response } from 'express';
+
+const {
+  AWS_DEFAULT_REGION: region,
+  AWS_ACCESS_KEY_ID: accessKeyId,
+  AWS_SECRET_ACCESS_KEY: secretAccessKey
+} = process.env;
+
+export function loadS3Credentials(req: Request, res: Response, next: NextFunction) {
+  if ([region, accessKeyId, secretAccessKey].some(value => !value)) {
+    throw new Error('Fatal error: S3 "AWS_DEFAULT_REGION", "AWS_ACCESS_KEY_ID" or/and "AWS_SECRET_ACCESS_KEY" not defined in .env');
+  }
+
+  next();
+}
 
 const storageType = {
   local: multer.diskStorage({
@@ -15,7 +30,7 @@ const storageType = {
         const time = new Date().getTime();
         const fileName = `${time}-${hash.toString('hex')}_${file.originalname}`;
 
-        if(err) {
+        if (err) {
           callback(err, fileName);
         }
 
@@ -23,29 +38,26 @@ const storageType = {
       });
     },
   }),
-  
+
   s3: multerS3({
     s3: new S3Client({
-      region: process.env.AWS_DEFAULT_REGION,
-      credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-      },
+      region,
+      credentials: { accessKeyId: accessKeyId ?? '', secretAccessKey: secretAccessKey ?? '' },
     }),
     bucket: 'felipeuploadimages',
     contentType: multerS3.AUTO_CONTENT_TYPE,
     acl: 'public-read',
     key(req, file, callback) {
-        crypto.randomBytes(6, (err, hash) => {
-          if(err) {
-            callback(err);
-          }
+      crypto.randomBytes(6, (err, hash) => {
+        if (err) {
+          callback(err);
+        }
 
-          const time = new Date().getTime();
-          const fileName = `${time}-${hash}_${file.originalname}`;
+        const time = new Date().getTime();
+        const fileName = `${time}-${hash}_${file.originalname}`;
 
-          callback(null, fileName);
-        });
+        callback(null, fileName);
+      });
     },
   })
 }
@@ -67,7 +79,7 @@ export default {
       'image/gif',
     ];
 
-    if(allowedMimes.includes(file.mimetype)) {
+    if (allowedMimes.includes(file.mimetype)) {
       callback(null, true);
     } else {
       callback(new Error('Esse arquivo não é um tipo de imagem.'));

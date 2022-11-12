@@ -6,11 +6,13 @@ import 'dotenv/config';
 import { uploadRoutes } from './routes/upload.routes';
 import { setupDatabase } from './database/setup';
 import { errorHandler } from './middlewares/errorHandler';
+import { loadS3Credentials } from './config/multer';
 
 const app = express();
 
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(loadS3Credentials);
 app.use(setupDatabase);
 
 app.use(uploadRoutes);
