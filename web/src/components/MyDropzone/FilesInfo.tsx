@@ -17,11 +17,11 @@ export function FilesInfo({ files }: FilesInfoProps) {
   return (
     <S.FilesInfoContainer>
       {files.map((file) => (
-        <S.FileContainer key={Math.random()}>
+        <S.FileContainer key={file.id}>
 
           <S.FileInfo>
             <S.FilePreview src={file.preview} />
-            
+
             <div>
               <strong>{file.name}</strong>
               <span>{file.readableSize}</span>
@@ -39,12 +39,12 @@ export function FilesInfo({ files }: FilesInfoProps) {
             </S.FileActions>
           ) : (
             <CircularProgressbar
-            styles={{
-              root: { width: '2.4rem' },
-              path: { stroke: theme.colors.green[500] }
-            }}
-            value={file.progress}
-            strokeWidth={10}
+              styles={{
+                root: { width: '2.4rem' },
+                path: { stroke: theme.colors.green[500] }
+              }}
+              value={file.progress}
+              strokeWidth={10}
             />
           )}
 

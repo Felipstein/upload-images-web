@@ -13,9 +13,7 @@ export class CreatePostUseCases {
       throw new APIError(400, 'Arquivo não pode ser nulo ou inexistente.');
     }
 
-    console.log('oiiiiiiiiiiiii');
     const { originalname: fileName, size, filename: keyLocal, key: keyS3, location: url = "" } = file;
-    console.log(file);
 
     const key = keyS3 || keyLocal;
     if (!key) {

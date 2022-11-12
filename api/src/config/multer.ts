@@ -72,7 +72,7 @@ export default {
   storage: type === 's3' ? storageType.s3 : storageType.local, // I don't know how to solve this problem with typescript yet
 
   limits: {
-    fileSize: 30 * 1024 * 1024
+    fileSize: 1024
   },
 
   fileFilter(req, file, callback) {
