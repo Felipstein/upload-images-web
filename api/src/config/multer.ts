@@ -56,7 +56,7 @@ const storageType = {
         }
 
         const time = new Date().getTime();
-        const fileName = `${time}-${hash}_${file.originalname}`;
+        const fileName = `${time}-${hash.toString('hex')}_${file.originalname}`;
 
         callback(null, fileName);
       });
