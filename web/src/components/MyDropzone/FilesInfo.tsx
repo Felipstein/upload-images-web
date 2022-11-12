@@ -6,6 +6,7 @@ import { ThemeContext } from 'styled-components';
 import { FileImage } from '../../types/File.type';
 
 import * as S from './styles';
+import { Tooltip } from '../Tooltip';
 
 interface FilesInfoProps {
   files: FileImage[];
@@ -49,9 +50,11 @@ export function FilesInfo({ files }: FilesInfoProps) {
           )}
 
           {file.error && (
-            <S.ErrorIcon>
-              <Warning />
-            </S.ErrorIcon>
+            <Tooltip text='Oii deu erro kkkk'>
+              <S.ErrorIcon>
+                <Warning />
+              </S.ErrorIcon>
+            </Tooltip>
           )}
 
         </S.FileContainer>

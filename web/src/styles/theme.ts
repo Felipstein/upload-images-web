@@ -2,6 +2,7 @@ export interface ThemeProps {
   font: string;
   colors: {
     white: string;
+    black: string;
     purple: {
       500: string;
     };
@@ -32,11 +33,13 @@ export interface ThemeProps {
 }
 
 export const defaultTheme: ThemeProps = {
-  
+
   font: 'Inter, sans-serif',
 
   colors: {
     white: '#fff',
+    black: "#121214",
+
     purple: {
       500: '#a855f7',
     },

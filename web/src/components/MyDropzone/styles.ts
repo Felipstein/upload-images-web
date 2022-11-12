@@ -82,10 +82,10 @@ export const FilePreview = styled.div<FilePreviewProps>`
   background-repeat: no-repeat;
   background-position: 50% 50%;
 
-  width: 4.8rem;
+  width: 5rem;
   height: 4.8rem;
 
-  border-radius: 128px;
+  border-radius: 16px;
 `;
 
 export const FileActions = styled.div`
