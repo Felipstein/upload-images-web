@@ -3,6 +3,7 @@ import { reject } from 'lodash';
 import { useCallback, useState } from 'react';
 import { useDropzone, FileRejection, DropEvent } from 'react-dropzone';
 import { toast } from 'react-toastify';
+import images from '../../configs/images';
 
 import * as S from './styles';
 
@@ -32,9 +33,9 @@ export function MyDropzone({ onUpload }: MyDropzoneProps) {
 
     if (rejected.length > 0) {
       if (rejected.length === 1) {
-        toast.error(`${rejected.length} imagem não foi enviada por ultrapassar o limite de ${filesize(20 * 1024 * 1024)}`);
+        toast.error(`${rejected.length} imagem não foi enviada por ultrapassar o limite de ${filesize(images.limitSize)}`);
       } else {
-        toast.error(`${rejected.length} imagens não foram enviadas por ultrapassarem o limite de ${filesize(20 * 1024 * 1024)}`);
+        toast.error(`${rejected.length} imagens não foram enviadas por ultrapassarem o limite de ${filesize(images.limitSize)}`);
       }
     }
 
@@ -42,10 +43,8 @@ export function MyDropzone({ onUpload }: MyDropzoneProps) {
   }, [onUpload]);
 
   function filterFiles(files: File[]) {
-    const maxSize = 20 * 1024 * 1024;
-
-    const rejected = files.filter(file => file.size > maxSize);
-    const accepted = files.filter(file => file.size <= maxSize);
+    const rejected = files.filter(file => file.size > images.limitSize);
+    const accepted = files.filter(file => file.size <= images.limitSize);
 
     return { accepted, rejected };
   }
