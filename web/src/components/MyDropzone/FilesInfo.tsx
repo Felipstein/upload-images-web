@@ -1,16 +1,17 @@
 import { useContext } from 'react';
 import { Link, Trash, Warning, X } from 'phosphor-react';
 import { CircularProgressbar } from 'react-circular-progressbar';
+import { toast } from 'react-toastify';
 import { ThemeContext } from 'styled-components';
 
 import { FileImage } from '../../types/File.type';
+import { copyToClipboard } from '../../utils/copyToClipboard';
 
-import * as S from './styles';
 import { Tooltip } from '../Tooltip';
 import { IconButton } from '../IconButton';
 import { FilePreview } from '../FilePreview';
-import { copyToClipboard } from '../../utils/copyToClipboard';
-import { toast } from 'react-toastify';
+
+import * as S from './styles';
 
 interface FilesInfoProps {
   files: FileImage[];
@@ -64,7 +65,7 @@ export function FilesInfo({ files, onDelete }: FilesInfoProps) {
                 root: { width: '2.4rem' },
                 path: { stroke: theme.colors.green[500] }
               }}
-              value={file.progress}
+              value={file.progress!}
               strokeWidth={10}
             />
           )}

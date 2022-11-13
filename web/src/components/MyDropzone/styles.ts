@@ -36,6 +36,10 @@ export const Container = styled.div<ContainerProps>`
 
 export const FilesInfoContainer = styled.ul`
   margin-top: 1.2rem;
+
+  & > * + * {
+    margin-top: 0.4rem;
+  }
 `;
 
 interface FileContainerProps {
