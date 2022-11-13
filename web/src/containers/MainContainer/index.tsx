@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toInteger, uniqueId } from 'lodash';
 import { filesize } from 'filesize';
 
@@ -13,6 +13,12 @@ import { toast } from 'react-toastify';
 
 export function MainContainer() {
   const [files, setFiles] = useState<FileImage[]>([]);
+
+  useEffect(() => {
+    return () => {
+      files.forEach(file => URL.revokeObjectURL(file.preview));
+    };
+  }, []);
 
   function handleUpload(files: File[]) {
     const filesMapped: FileImage[] = files.map((file) => ({
