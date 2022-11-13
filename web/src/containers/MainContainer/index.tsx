@@ -61,6 +61,12 @@ export function MainContainer() {
     ));
   }
 
+  async function handleDelete(id: string) {
+    await api.deleteImage(id);
+
+    setFiles(prevState => prevState.filter(file => file.id !== id));
+  }
+
   return (
     <S.Container>
       <MyDropzone onUpload={handleUpload} />

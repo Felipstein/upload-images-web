@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import axios, { Axios, AxiosError, AxiosInstance, AxiosProgressEvent } from "axios";
+import axios, { Axios, AxiosError, AxiosInstance, AxiosProgressEvent, AxiosRequestConfig } from "axios";
 
 class API {
 
@@ -9,6 +9,18 @@ class API {
     this.api = axios.create({
       baseURL: 'http://localhost:3333',
     });
+  }
+
+  async catchErrors(err: AxiosError | Error | any) {
+    if (err instanceof AxiosError) {
+      const message = err.response?.data.message || 'Erro desconhecido, tente novamente mais tarde.';
+      toast.error(message);
+      return { errorMessage: message };
+    } else {
+      const message = err.message || 'Erro desconhecido, tente novamente mais tarde.';
+      toast.error(message);
+      return { errorMessage: message };
+    }
   }
 
   async uploadImage(data: FormData, onUploadProgress: ((progressEvent: AxiosProgressEvent) => void) | undefined) {
@@ -21,16 +33,16 @@ class API {
         ok: true,
         ...dataReturned,
       };
-    } catch (err: AxiosError | Error | any) {
-      if (err instanceof AxiosError) {
-        const message = err.response?.data.message || 'Erro desconhecido, tente novamente mais tarde.';
-        toast.error(message);
-        return { errorMessage: message };
-      } else {
-        const message = err.message || 'Erro desconhecido, tente novamente mais tarde.';
-        toast.error(message);
-        return { errorMessage: message };
-      }
+    } catch (err: any) {
+      return this.catchErrors(err);
+    }
+  }
+
+  async deleteImage(id: string) {
+    try {
+      await this.api.delete(`/posts/${id}`);
+    } catch (err: any) {
+      return this.catchErrors(err);
     }
   }
 
