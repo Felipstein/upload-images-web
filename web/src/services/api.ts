@@ -1,5 +1,6 @@
 import { toast } from 'react-toastify';
 import axios, { Axios, AxiosError, AxiosInstance, AxiosProgressEvent, AxiosRequestConfig } from "axios";
+import { delay } from '../utils/delay';
 
 class API {
 
@@ -39,6 +40,7 @@ class API {
   }
 
   async deleteImage(id: string) {
+    await delay(3000);
     try {
       await this.api.delete(`/images/${id}`);
     } catch (err: any) {

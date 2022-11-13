@@ -25,6 +25,7 @@ export function MainContainer() {
       uploaded: false,
       error: null,
       url: null,
+      isDeleting: false,
     }));
 
     setFiles(prevState => prevState.concat(filesMapped));
@@ -63,10 +64,13 @@ export function MainContainer() {
   }
 
   async function handleDelete(id: string) {
+    updateFile(id, { isDeleting: true });
+
     await api.deleteImage(id);
     setFiles(prevState => prevState.filter(file => file.id !== id));
 
     toast.success('Imagem excluída com êxito');
+    updateFile(id, { isDeleting: false });
   }
 
   return (

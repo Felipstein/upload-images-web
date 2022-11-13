@@ -8,4 +8,5 @@ export type FileImage = {
   error: string | null;
   progress: number;
   url: string | null;
+  isDeleting: boolean;
 }

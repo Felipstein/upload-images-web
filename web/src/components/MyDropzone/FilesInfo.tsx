@@ -47,7 +47,12 @@ export function FilesInfo({ files, onDelete }: FilesInfoProps) {
               <IconButton className="copy-link-btn" tooltipText="Copiar link" onClick={() => handleCopyLink(file.url!)}>
                 <Link />
               </IconButton>
-              <IconButton className="delete-btn" tooltipText="Deletar" onClick={() => onDelete(file.id)}>
+              <IconButton
+                className="delete-btn"
+                tooltipText="Deletar"
+                isLoading={file.isDeleting}
+                onClick={() => onDelete(file.id)}
+              >
                 <Trash />
               </IconButton>
             </S.Icons>
