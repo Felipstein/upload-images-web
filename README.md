@@ -62,7 +62,7 @@ Clone o projeto na sua máquina
     gh repo clone Felipstein/upload-images-web
 ```
 
-Navege até o repositório local
+Navegue até o repositório local
 ```bash
     cd upload-images-web
 ```
