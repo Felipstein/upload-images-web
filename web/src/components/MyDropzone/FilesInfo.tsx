@@ -20,7 +20,7 @@ export function FilesInfo({ files }: FilesInfoProps) {
   return (
     <S.FilesInfoContainer>
       {files.map((file) => (
-        <S.FileContainer key={file.id}>
+        <S.FileContainer key={file.id} error={!!file.error} >
 
           <S.FileInfo>
             <FilePreview src={file.preview} href={file.url ?? undefined} />

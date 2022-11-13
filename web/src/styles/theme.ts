@@ -9,6 +9,7 @@ export interface ThemeProps {
     red: {
       500: string;
       400: string;
+      100: string;
     };
     green: {
       500: string;
@@ -47,6 +48,7 @@ export const defaultTheme: ThemeProps = {
     red: {
       500: '#ef4444',
       400: '#f87171',
+      100: '#fee2e2',
     },
 
     green: {

@@ -38,15 +38,24 @@ export const FilesInfoContainer = styled.ul`
   margin-top: 1.2rem;
 `;
 
-export const FileContainer = styled.li`
+interface FileContainerProps {
+  error: boolean;
+}
+
+export const FileContainer = styled.li<FileContainerProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1.6rem;
+  border-radius: 8px;
 
   padding: 0.8rem 1.6rem;
 
   height: fit-content;
+
+  ${({ theme, error }: GlobalThemeProps & FileContainerProps) => error && css`
+    background-color: ${theme.colors.red[100]};
+  `};
 `;
 
 export const FileInfo = styled.div`
