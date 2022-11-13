@@ -9,6 +9,7 @@ import { FileImage } from '../../types/File.type';
 
 import * as S from './styles';
 import { api } from '../../services/api';
+import { toast } from 'react-toastify';
 
 export function MainContainer() {
   const [files, setFiles] = useState<FileImage[]>([]);
@@ -63,8 +64,9 @@ export function MainContainer() {
 
   async function handleDelete(id: string) {
     await api.deleteImage(id);
-
     setFiles(prevState => prevState.filter(file => file.id !== id));
+
+    toast.success('Imagem excluída com êxito');
   }
 
   return (
