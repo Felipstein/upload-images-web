@@ -9,6 +9,7 @@ import * as S from './styles';
 import { Tooltip } from '../Tooltip';
 import { IconButton } from '../IconButton';
 import { FilePreview } from '../FilePreview';
+import { copyToClipboard } from '../../utils/copyToClipboard';
 
 interface FilesInfoProps {
   files: FileImage[];
@@ -16,6 +17,10 @@ interface FilesInfoProps {
 
 export function FilesInfo({ files }: FilesInfoProps) {
   const theme = useContext(ThemeContext);
+
+  function handleCopyLink(url: string) {
+    copyToClipboard(url);
+  }
 
   return (
     <S.FilesInfoContainer>
@@ -33,7 +38,7 @@ export function FilesInfo({ files }: FilesInfoProps) {
 
           {file.uploaded && !file.error && (
             <S.Icons>
-              <IconButton className="copy-link-btn" tooltipText="Copiar link">
+              <IconButton className="copy-link-btn" tooltipText="Copiar link" onClick={() => handleCopyLink(file.url!)}>
                 <Link />
               </IconButton>
               <IconButton className="delete-btn" tooltipText="Deletar">
