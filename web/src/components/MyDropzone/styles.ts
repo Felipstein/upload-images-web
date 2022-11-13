@@ -72,22 +72,6 @@ export const FileInfo = styled.div`
   }
 `;
 
-interface FilePreviewProps {
-  src: string;
-}
-
-export const FilePreview = styled.div<FilePreviewProps>`
-  background-image: url(${({ src }) => src});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-
-  width: 5rem;
-  height: 4.8rem;
-
-  border-radius: 16px;
-`;
-
 export const Icons = styled.ul`
   display: flex;
   align-items: center;

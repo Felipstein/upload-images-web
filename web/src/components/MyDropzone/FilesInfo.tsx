@@ -8,6 +8,7 @@ import { FileImage } from '../../types/File.type';
 import * as S from './styles';
 import { Tooltip } from '../Tooltip';
 import { IconButton } from '../IconButton';
+import { FilePreview } from '../FilePreview';
 
 interface FilesInfoProps {
   files: FileImage[];
@@ -22,7 +23,7 @@ export function FilesInfo({ files }: FilesInfoProps) {
         <S.FileContainer key={file.id}>
 
           <S.FileInfo>
-            <S.FilePreview src={file.preview} />
+            <FilePreview src={file.preview} href={file.url ?? undefined} />
 
             <div>
               <strong>{file.name}</strong>
