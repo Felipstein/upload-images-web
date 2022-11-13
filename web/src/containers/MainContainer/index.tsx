@@ -96,11 +96,15 @@ export function MainContainer() {
     updateFile(id, { isDeleting: false });
   }
 
+  async function handleCancel(id: string) {
+    setFiles(prevState => prevState.filter(file => file.id !== id));
+  }
+
   return (
     <S.Container>
       <MyDropzone onUpload={handleUpload} />
       {files.length > 0 && (
-        <FilesInfo files={files} onDelete={handleDelete} />
+        <FilesInfo files={files} onDelete={handleDelete} onCancel={handleCancel} />
       )}
     </S.Container>
   );

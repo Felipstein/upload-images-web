@@ -16,9 +16,10 @@ import * as S from './styles';
 interface FilesInfoProps {
   files: FileImage[];
   onDelete: (id: string) => void;
+  onCancel: (id: string) => void;
 }
 
-export function FilesInfo({ files, onDelete }: FilesInfoProps) {
+export function FilesInfo({ files, onDelete, onCancel }: FilesInfoProps) {
   const theme = useContext(ThemeContext);
 
   function handleCopyLink(url: string) {
@@ -77,7 +78,7 @@ export function FilesInfo({ files, onDelete }: FilesInfoProps) {
                   <Warning />
                 </S.ErrorIcon>
               </Tooltip>
-              <IconButton className="remove-btn" tooltipText="Cancelar">
+              <IconButton className="remove-btn" tooltipText="Cancelar" onClick={() => onCancel(file.id)}>
                 <X />
               </IconButton>
             </S.Icons>
