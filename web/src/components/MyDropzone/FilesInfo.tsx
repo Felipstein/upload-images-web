@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Link, Trash, Warning } from 'phosphor-react';
+import { Link, Trash, Warning, X } from 'phosphor-react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import { ThemeContext } from 'styled-components';
 
@@ -30,14 +30,18 @@ export function FilesInfo({ files }: FilesInfoProps) {
           </S.FileInfo>
 
           {file.uploaded && !file.error && (
-            <S.FileActions>
-              <S.CopyLinkButton>
-                <Link />
-              </S.CopyLinkButton>
-              <S.DeleteButton>
-                <Trash />
-              </S.DeleteButton>
-            </S.FileActions>
+            <S.Icons>
+              <S.IconButton>
+                <S.CopyLinkButton>
+                  <Link />
+                </S.CopyLinkButton>
+              </S.IconButton>
+              <S.IconButton>
+                <S.DeleteButton>
+                  <Trash />
+                </S.DeleteButton>
+              </S.IconButton>
+            </S.Icons>
           )}
 
           {!file.uploaded && !file.error && (
@@ -52,11 +56,18 @@ export function FilesInfo({ files }: FilesInfoProps) {
           )}
 
           {file.error && (
-            <Tooltip text={file.error}>
-              <S.ErrorIcon>
-                <Warning />
-              </S.ErrorIcon>
-            </Tooltip>
+            <S.Icons>
+              <Tooltip text={file.error}>
+                <S.ErrorIcon>
+                  <Warning />
+                </S.ErrorIcon>
+              </Tooltip>
+              <Tooltip text="Remover">
+                <S.CancelIcon>
+                  <X />
+                </S.CancelIcon>
+              </Tooltip>
+            </S.Icons>
           )}
 
         </S.FileContainer>

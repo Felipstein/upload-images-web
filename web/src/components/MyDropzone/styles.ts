@@ -88,42 +88,46 @@ export const FilePreview = styled.div<FilePreviewProps>`
   border-radius: 16px;
 `;
 
-export const FileActions = styled.div`
+export const Icons = styled.ul`
   display: flex;
-  gap: 0.2rem;
+  align-items: center;
+  gap: 0.4rem;
+
+  & > * {
+    font-size: 2.4rem;
+    cursor: pointer;    
+  }
 `;
 
-export const CopyLinkButton = styled.button`
+export const IconButton = styled.button`
   display: flex;
   align-items: center;
 
-  color: ${({ theme }: GlobalThemeProps) => theme.colors.gray[500]};
-  font-size: 2.4rem;
   border: none;
   background-color: transparent;
-  cursor: pointer;
 
+  font-size: 2.4rem;
+`;
+
+export const CopyLinkButton = styled.div`
+
+  color: ${({ theme }: GlobalThemeProps) => theme.colors.gray[500]};
   &:hover {
     color: ${({ theme }: GlobalThemeProps) => theme.colors.gray[700]};
   }
 `;
 
-export const DeleteButton = styled.button`
-  display: flex;
-  align-items: center;
-
+export const DeleteButton = styled.div`
   color: ${({ theme }: GlobalThemeProps) => theme.colors.red[500]};
-  font-size: 2.4rem;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-
   &:hover {
     color: ${({ theme }: GlobalThemeProps) => theme.colors.red[400]};
   }
 `;
 
 export const ErrorIcon = styled.div`
-  font-size: 2.4rem;
   color: ${({ theme }: GlobalThemeProps) => theme.colors.red[500]};
+`;
+
+export const CancelIcon = styled.div`
+  color: ${({ theme }: GlobalThemeProps) => theme.colors.gray[700]};
 `;
