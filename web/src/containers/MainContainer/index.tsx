@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { toInteger, uniqueId } from 'lodash';
 import { filesize } from 'filesize';
+import { toast } from 'react-toastify';
+
+import { api } from '../../services/api';
+import { FileImage } from '../../types/File.type';
 
 import { MyDropzone } from '../../components/MyDropzone';
 import { FilesInfo } from '../../components/MyDropzone/FilesInfo';
 
-import { FileImage } from '../../types/File.type';
-
 import * as S from './styles';
-import { api } from '../../services/api';
-import { toast } from 'react-toastify';
 
 export function MainContainer() {
   const [files, setFiles] = useState<FileImage[]>([]);
@@ -103,9 +103,11 @@ export function MainContainer() {
   return (
     <S.Container>
       <MyDropzone onUpload={handleUpload} />
-      {files.length > 0 && (
-        <FilesInfo files={files} onDelete={handleDelete} onCancel={handleCancel} />
-      )}
+      <S.FilesContainer>
+        {files.length > 0 && (
+          <FilesInfo files={files} onDelete={handleDelete} onCancel={handleCancel} />
+        )}
+      </S.FilesContainer>
     </S.Container>
   );
 };
