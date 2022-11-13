@@ -14,9 +14,10 @@ import { toast } from 'react-toastify';
 
 interface FilesInfoProps {
   files: FileImage[];
+  onDelete: (id: string) => void;
 }
 
-export function FilesInfo({ files }: FilesInfoProps) {
+export function FilesInfo({ files, onDelete }: FilesInfoProps) {
   const theme = useContext(ThemeContext);
 
   function handleCopyLink(url: string) {
@@ -46,7 +47,7 @@ export function FilesInfo({ files }: FilesInfoProps) {
               <IconButton className="copy-link-btn" tooltipText="Copiar link" onClick={() => handleCopyLink(file.url!)}>
                 <Link />
               </IconButton>
-              <IconButton className="delete-btn" tooltipText="Deletar">
+              <IconButton className="delete-btn" tooltipText="Deletar" onClick={() => onDelete(file.id)}>
                 <Trash />
               </IconButton>
             </S.Icons>
@@ -77,7 +78,8 @@ export function FilesInfo({ files }: FilesInfoProps) {
           )}
 
         </S.FileContainer>
-      ))}
-    </S.FilesInfoContainer>
+      ))
+      }
+    </S.FilesInfoContainer >
   );
 }

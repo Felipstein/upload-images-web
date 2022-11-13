@@ -40,7 +40,7 @@ class API {
 
   async deleteImage(id: string) {
     try {
-      await this.api.delete(`/posts/${id}`);
+      await this.api.delete(`/images/${id}`);
     } catch (err: any) {
       return this.catchErrors(err);
     }

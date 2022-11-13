@@ -71,7 +71,7 @@ export function MainContainer() {
     <S.Container>
       <MyDropzone onUpload={handleUpload} />
       {files.length > 0 && (
-        <FilesInfo files={files} />
+        <FilesInfo files={files} onDelete={handleDelete} />
       )}
     </S.Container>
   );
