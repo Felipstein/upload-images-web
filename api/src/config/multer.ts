@@ -16,8 +16,10 @@ export const {
 export const fileSizeLimit = 30 * 1024 * 1024;
 
 export function loadS3Credentials(req: Request, res: Response, next: NextFunction) {
-  if ([bucketName, region, accessKeyId, secretAccessKey].some(value => !value)) {
-    throw new Error('Fatal error: S3 "BUECKET_NAME", "AWS_DEFAULT_REGION", "AWS_ACCESS_KEY_ID" or/and "AWS_SECRET_ACCESS_KEY" not defined in .env');
+  if (type === 's3') {
+    if ([bucketName, region, accessKeyId, secretAccessKey].some(value => !value)) {
+      throw new Error('Fatal error: S3 "BUECKET_NAME", "AWS_DEFAULT_REGION", "AWS_ACCESS_KEY_ID" or/and "AWS_SECRET_ACCESS_KEY" not defined in .env');
+    }
   }
 
   next();
