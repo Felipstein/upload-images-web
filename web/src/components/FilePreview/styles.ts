@@ -13,7 +13,7 @@ export const AnchorStyled = styled.a`
 
   transition: transform 0.1s ease-in-out;
 
-  ${({ theme, href }: GlobalThemeProps & React.AnchorHTMLAttributes<HTMLAnchorElement>) => href && css`
+  ${({ href }: GlobalThemeProps & React.AnchorHTMLAttributes<HTMLAnchorElement>) => href && css`
     cursor: pointer;
 
     &:hover {

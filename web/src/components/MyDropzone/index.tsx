@@ -26,13 +26,31 @@ export function MyDropzone({ onUpload }: MyDropzoneProps) {
       toast.error(`${rejectableFiles.length} image${rejectableFiles.length > 1 ? 'ns' : 'm'} não fo${rejectableFiles.length > 1 ? 'ram' : 'i'} enviada${rejectableFiles.length > 1 ? 's' : ''}`);
     }
 
-    onUpload(acceptedFiles);
+    if (acceptedFiles.length > 10) {
+      toast.error('O limite de envio é de somente até 10 imagens');
+      return;
+    }
+
+    const { accepted, rejected } = filterFiles(acceptedFiles);
+
+    if (rejected.length > 0) {
+      toast.error(`${rejected.length} não foram enviadas por ultrapassarem o limite de 30mb`);
+    }
+
+    onUpload(accepted);
   }, [onUpload]);
+
+  function filterFiles(files: File[]) {
+    const rejected = files.filter(file => file.size > 30 * 1024 * 1024);
+    const accepted = files.filter(file => file.size <= 30 * 1024 * 1024);
+
+    return { accepted, rejected };
+  }
 
   const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({
     onDrop: handleFilesDropped,
-    maxSize: 32 * 1024 * 1024,
-    maxFiles: 10,
+    // maxSize: 30 * 1024 * 1024,
+    // maxFiles: 10,
     accept: {
       'image/*': [],
     },
