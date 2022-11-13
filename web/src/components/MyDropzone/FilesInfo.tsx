@@ -10,6 +10,7 @@ import { Tooltip } from '../Tooltip';
 import { IconButton } from '../IconButton';
 import { FilePreview } from '../FilePreview';
 import { copyToClipboard } from '../../utils/copyToClipboard';
+import { toast } from 'react-toastify';
 
 interface FilesInfoProps {
   files: FileImage[];
@@ -20,6 +21,10 @@ export function FilesInfo({ files }: FilesInfoProps) {
 
   function handleCopyLink(url: string) {
     copyToClipboard(url);
+
+    toast('Link copiado', {
+      position: 'bottom-center',
+    });
   }
 
   return (
