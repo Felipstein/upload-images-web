@@ -7,6 +7,7 @@ import { FileImage } from '../../types/File.type';
 
 import * as S from './styles';
 import { Tooltip } from '../Tooltip';
+import { IconButton } from '../IconButton';
 
 interface FilesInfoProps {
   files: FileImage[];
@@ -31,16 +32,12 @@ export function FilesInfo({ files }: FilesInfoProps) {
 
           {file.uploaded && !file.error && (
             <S.Icons>
-              <S.IconButton>
-                <S.CopyLinkButton>
-                  <Link />
-                </S.CopyLinkButton>
-              </S.IconButton>
-              <S.IconButton>
-                <S.DeleteButton>
-                  <Trash />
-                </S.DeleteButton>
-              </S.IconButton>
+              <IconButton className="copy-link-btn" tooltipText="Copiar link">
+                <Link />
+              </IconButton>
+              <IconButton className="delete-btn" tooltipText="Deletar">
+                <Trash />
+              </IconButton>
             </S.Icons>
           )}
 
@@ -62,11 +59,9 @@ export function FilesInfo({ files }: FilesInfoProps) {
                   <Warning />
                 </S.ErrorIcon>
               </Tooltip>
-              <Tooltip text="Remover">
-                <S.CancelIcon>
-                  <X />
-                </S.CancelIcon>
-              </Tooltip>
+              <IconButton className="remove-btn" tooltipText="Cancelar">
+                <X />
+              </IconButton>
             </S.Icons>
           )}
 

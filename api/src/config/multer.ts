@@ -13,7 +13,7 @@ export const {
   STORAGE_TYPE: type = 's3',
 } = process.env;
 
-export const fileSizeLimit = 3 * 1024 * 1024;
+export const fileSizeLimit = 30 * 1024 * 1024;
 
 export function loadS3Credentials(req: Request, res: Response, next: NextFunction) {
   if ([bucketName, region, accessKeyId, secretAccessKey].some(value => !value)) {

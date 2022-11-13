@@ -93,41 +93,23 @@ export const Icons = styled.ul`
   align-items: center;
   gap: 0.4rem;
 
-  & > * {
-    font-size: 2.4rem;
-    cursor: pointer;    
+  .copy-link-btn {
+    color: ${({ theme }: GlobalThemeProps) => theme.colors.gray[700]};
   }
-`;
 
-export const IconButton = styled.button`
-  display: flex;
-  align-items: center;
+  .delete-btn {
+    color: ${({ theme }: GlobalThemeProps) => theme.colors.red[500]};
+  }
 
-  border: none;
-  background-color: transparent;
-
-  font-size: 2.4rem;
-`;
-
-export const CopyLinkButton = styled.div`
-
-  color: ${({ theme }: GlobalThemeProps) => theme.colors.gray[500]};
-  &:hover {
+  .cancel-btn {
     color: ${({ theme }: GlobalThemeProps) => theme.colors.gray[700]};
   }
 `;
 
-export const DeleteButton = styled.div`
-  color: ${({ theme }: GlobalThemeProps) => theme.colors.red[500]};
-  &:hover {
-    color: ${({ theme }: GlobalThemeProps) => theme.colors.red[400]};
-  }
-`;
-
 export const ErrorIcon = styled.div`
-  color: ${({ theme }: GlobalThemeProps) => theme.colors.red[500]};
-`;
+  display: flex;
+  align-items: center;
 
-export const CancelIcon = styled.div`
-  color: ${({ theme }: GlobalThemeProps) => theme.colors.gray[700]};
+  font-size: 2.4rem;
+  color: ${({ theme }: GlobalThemeProps) => theme.colors.red[500]};
 `;
