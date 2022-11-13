@@ -15,6 +15,23 @@ export function MainContainer() {
   const [files, setFiles] = useState<FileImage[]>([]);
 
   useEffect(() => {
+    async function loadImages() {
+      const images = await api.loadImages();
+
+      if (images) {
+        setFiles(images.map(file => ({
+          id: file._id,
+          name: file.fileName,
+          readableSize: filesize(file.size),
+          preview: file.url,
+          uploaded: true,
+          url: file.url,
+        })));
+      }
+    }
+
+    loadImages();
+
     return () => {
       files.forEach(file => URL.revokeObjectURL(file.preview));
     };
@@ -41,7 +58,7 @@ export function MainContainer() {
   async function processUpload(uploadedFile: FileImage) {
     const data = new FormData();
 
-    data.append('file', uploadedFile.file, uploadedFile.name);
+    data.append('file', uploadedFile.file!, uploadedFile.name);
 
     const dataReturned = await api.uploadImage(data, (event) => {
       const progress = toInteger(Math.round((event.loaded * 100) / (event.total ?? 0)));

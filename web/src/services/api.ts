@@ -24,6 +24,16 @@ class API {
     }
   }
 
+  async loadImages(): Promise<any[] | undefined> {
+    try {
+      const { data: images } = await this.api.get('/images');
+
+      return images;
+    } catch (err) {
+      this.catchErrors(err);
+    }
+  }
+
   async uploadImage(data: FormData, onUploadProgress: ((progressEvent: AxiosProgressEvent) => void) | undefined) {
     try {
       const { data: dataReturned } = await this.api.post('/images', data, {

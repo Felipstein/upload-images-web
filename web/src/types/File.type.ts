@@ -1,12 +1,12 @@
 export type FileImage = {
-  file: File;
+  file?: File;
   id: string;
   name: string;
   readableSize: string | number | any;
   preview: string;
   uploaded: boolean;
-  error: string | null;
-  progress: number;
+  error?: string | null;
+  progress?: number;
   url: string | null;
-  isDeleting: boolean;
+  isDeleting?: boolean;
 }
